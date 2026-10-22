@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#101410">
 <meta name="description" content="تابع إعلانات وصور وأنظمة اشتراك Mahmoud Omira Gym.">
+  
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#101410">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="One Gym">
+
 <title>Mahmoud Omira Gym</title>
 <style>
 :root{--bg:#101410;--panel:#191f1a;--panel2:#202820;--green:#a3e635;--text:#f4f7f1;--muted:#9ca99c;--border:#303a30}
@@ -302,5 +309,15 @@ async function loadAnnouncements(){
 openPage(location.hash.slice(1)||"home",false);
 loadAnnouncements();
 </script>
+  
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .catch(error => console.error("PWA error:", error));
+  });
+}
+</script>
+
 </body>
 </html>
