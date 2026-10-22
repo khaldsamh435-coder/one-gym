@@ -1,0 +1,23 @@
+
+{
+  "id": "/",
+  "name": "One Gym",
+  "short_name": "One Gym",
+  "description": "One Gym - Fitness, Strength, Community",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101410",
+  "theme_color": "#101410",
+  "icons": [
+    {
+      "src": "https://files.catbox.moe/7tbo6e.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
