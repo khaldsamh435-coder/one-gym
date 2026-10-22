@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101410">
+<meta name="description" content="تابع إعلانات وصور وأنظمة اشتراك Mahmoud Omira Gym.">
+<title>Mahmoud Omira Gym</title>
+<style>
+:root{--bg:#101410;--panel:#191f1a;--panel2:#202820;--green:#a3e635;--text:#f4f7f1;--muted:#9ca99c;--border:#303a30}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Tahoma,sans-serif}
+button,a{font:inherit}
+a{text-decoration:none;color:inherit}
+.sidebar{position:fixed;right:0;top:0;bottom:0;width:255px;background:#151a15;border-left:1px solid var(--border);padding:22px 16px;z-index:10;overflow-y:auto}
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:30px;padding:7px}
+.logo-icon{width:45px;height:45px;display:grid;place-items:center;background:var(--green);color:#17210c;border-radius:13px;font-size:24px;font-weight:bold}
+.logo h2{font-size:16px;margin:0 0 5px}
+.logo p{font-size:12px;color:var(--muted);margin:0}
+.nav-title{font-size:12px;color:var(--muted);margin:20px 10px 10px}
+.nav-link{display:flex;align-items:center;gap:12px;padding:14px 12px;margin:5px 0;border-radius:10px;color:#c6d0c4;transition:.2s}
+.nav-link:hover,.nav-link.active{background:#293624;color:var(--green)}
+.nav-icon{width:24px;text-align:center;font-size:19px}
+.main{margin-right:255px;min-height:100vh}
+.topbar{height:82px;position:sticky;top:0;z-index:5;background:#101410f2;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:15px 25px;gap:12px}
+.topbar h1{font-size:21px;margin:0}
+.topbar p{font-size:12px;color:var(--muted);margin:6px 0 0}
+.menu-btn{display:none;background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:9px;width:43px;height:43px;font-size:22px}
+.content{max-width:1100px;margin:auto;padding:26px}
+.page{display:none;animation:appear .2s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.hero{background:linear-gradient(135deg,#263820,#191f1a);border:1px solid var(--border);border-radius:18px;padding:32px;margin-bottom:24px}
+.hero-label{color:var(--green);font-size:13px;font-weight:bold}
+.hero h2{font-size:clamp(26px,4vw,38px);line-height:1.5;margin:15px 0}
+.hero p{color:#c5d0c0;line-height:2;max-width:650px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 17px;border:0;border-radius:9px;background:var(--green);color:#17210c;font-weight:bold;cursor:pointer}
+.btn-secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}
+.section-head h2{font-size:20px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:21px;min-width:0}
+.card-icon{width:45px;height:45px;display:grid;place-items:center;background:#293624;color:var(--green);border-radius:12px;font-size:22px}
+.card h3{font-size:17px;margin:15px 0 9px}
+.card p{font-size:13px;line-height:1.9;color:var(--muted);margin:0}
+.muted{font-size:13px;line-height:1.9;color:var(--muted)}
+.announcement{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:15px;overflow:hidden}
+.announcement h3{margin:0 0 10px;color:var(--green);font-size:19px;overflow-wrap:anywhere}
+.announcement p{white-space:pre-wrap;line-height:1.9;overflow-wrap:anywhere}
+.announcement time{font-size:12px;color:var(--muted)}
+.announcement img{display:block;width:auto;max-width:100%;max-height:400px;object-fit:contain;border-radius:10px;margin-top:12px}
+.empty{padding:25px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--border);border-radius:12px;line-height:1.9}
+.contact-row{padding:15px 0;border-bottom:1px solid var(--border);line-height:1.8}
+.contact-row:last-child{border-bottom:0}
+.footer{border-top:1px solid var(--border);padding:22px;text-align:center;color:var(--muted);font-size:12px;margin-top:35px}
+.overlay{display:none}
+@media(max-width:800px){
+.sidebar{transform:translateX(105%);transition:transform .25s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-right:0}
+.menu-btn{display:block;flex-shrink:0}
+.topbar{height:75px;padding:12px 15px}
+.content{padding:17px 13px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.hero{padding:23px}
+.overlay.show{display:block;position:fixed;inset:0;background:#0009;z-index:8}
+}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.hero h2{font-size:27px}.section-head{align-items:flex-start;flex-direction:column}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-icon">G</div>
+    <div>
+      <h2>Mahmoud Omira Gym</h2>
+      <p>المنصة الرسمية للجيم</p>
+    </div>
+  </div>
+  <div class="nav-title">القائمة الرئيسية</div>
+  <nav>
+    <a class="nav-link active" href="#home" data-page="home"><span class="nav-icon">▦</span> الرئيسية</a>
+    <a class="nav-link" href="#announcements" data-page="announcements"><span class="nav-icon">▣</span> الإعلانات</a>
+    <a class="nav-link" href="#plans" data-page="plans"><span class="nav-icon">▤</span> أنظمة الاشتراك</a>
+    <a class="nav-link" href="#about" data-page="about"><span class="nav-icon">⌂</span> عن الجيم</a>
+    <a class="nav-link" href="#contact" data-page="contact"><span class="nav-icon">☎</span> التواصل</a>
+  </nav>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+      <div>
+        <h1 id="pageTitle">الرئيسية</h1>
+        <p>Mahmoud Omira Gym</p>
+      </div>
+    </div>
+    <a href="#plans" class="btn" data-open-page="plans">الاشتراكات</a>
+  </header>
+
+  <div class="content">
+    <section class="page active" id="home">
+      <div class="hero">
+        <span class="hero-label">MAHMOUD OMIRA GYM</span>
+        <h2>ابدأ رحلتك نحو القوة والتطور</h2>
+        <p>أهلًا بيك في جيم محمود عميرة. تابع أحدث الإعلانات، وتعرّف على أنظمة الاشتراك، واعرف المعلومات اللي تحتاجها قبل بداية رحلتك التدريبية.</p>
+        <a href="#plans" class="btn" data-open-page="plans">اكتشف أنظمة الاشتراك ←</a>
+      </div>
+      <div class="section-head"><h2>اكتشف خدماتنا</h2></div>
+      <div class="grid">
+        <article class="card"><div class="card-icon">♜</div><h3>التدريب</h3><p>اهتم بتطوير أدائك والتزم بتدريبك خطوة بخطوة.</p></article>
+        <article class="card"><div class="card-icon">▤</div><h3>الاشتراكات</h3><p>تعرّف على أنظمة الاشتراك واستفسر عن التفاصيل.</p></article>
+        <article class="card"><div class="card-icon">▣</div><h3>الإعلانات</h3><p>تابع العروض والأخبار والمواعيد الجديدة الخاصة بالجيم.</p><a href="#announcements" class="btn btn-secondary" data-open-page="announcements" style="margin-top:15px">عرض الإعلانات</a></article>
+      </div>
+    </section>
+
+    <section class="page" id="announcements">
+      <div class="section-head"><h2>إعلانات الجيم</h2></div>
+      <p class="muted">تابع آخر الأخبار والعروض المنشورة من إدارة الجيم.</p>
+      <div id="announcementsList"><div class="empty">جاري تحميل الإعلانات...</div></div>
+    </section>
+
+    <section class="page" id="plans">
+      <div class="section-head"><h2>أنظمة الاشتراك</h2></div>
+      <p class="muted">للتأكد من الأسعار والمواعيد المتاحة، تواصل مع إدارة الجيم.</p>
+      <div class="grid">
+        <article class="card"><div class="card-icon">♙</div><h3>الاشتراك العادي</h3><p>اسأل إدارة الجيم عن السعر والمدة والتفاصيل.</p></article>
+        <article class="card"><div class="card-icon">♟</div><h3>الاشتراك البرايفت</h3><p>استفسر عن التدريب الخاص والمواعيد المتاحة.</p></article>
+        <article class="card"><div class="card-icon">◷</div><h3>مواعيد التدريب</h3><p>تواصل مع الإدارة لمعرفة مواعيد العمل الحالية.</p></article>
+      </div>
+    </section>
+
+    <section class="page" id="about">
+      <div class="hero">
+        <span class="hero-label">من نحن</span>
+        <h2>Mahmoud Omira Gym</h2>
+        <p>مكان للتدريب والتطور وبناء عادات صحية، مع الاهتمام بالالتزام وتحسين الأداء خطوة بخطوة.</p>
+      </div>
+      <div class="card"><h3>هدفنا</h3><p>توفير بيئة تساعد المشتركين على الالتزام بالتدريب والتقدم نحو أهدافهم الرياضية.</p></div>
+    </section>
+
+    <section class="page" id="contact">
+      <div class="section-head"><h2>تواصل معنا</h2></div>
+      <div class="card">
+        <p class="muted">للاستفسار عن الاشتراكات والأسعار ومواعيد العمل، تواصل مع إدارة الجيم.</p>
+        <div class="contact-row"><strong>اسم الجيم</strong><br><span class="muted">Mahmoud Omira Gym</span></div>
+        <div class="contact-row"><strong>الاستفسارات</strong><br><span class="muted">يرجى سؤال إدارة الجيم عن رقم التواصل الرسمي.</span></div>
+      </div>
+    </section>
+
+    <footer class="footer">Mahmoud Omira Gym · جميع الحقوق محفوظة</footer>
+  </div>
+</main>
+
+<script>
+const SUPABASE_URL="https://mxrtbycasfocqmpiubwm.supabase.co";
+const SUPABASE_KEY="sb_publishable_iX6kZ-Q0c1A-0cL853X5Rg_GmqGOHGy";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const sidebar=document.getElementById("sidebar");
+const menuBtn=document.getElementById("menuBtn");
+const overlay=document.getElementById("overlay");
+const pageTitle=document.getElementById("pageTitle");
+
+const pageNames={
+  home:"الرئيسية",
+  announcements:"إعلانات الجيم",
+  plans:"أنظمة الاشتراك",
+  about:"عن الجيم",
+  contact:"التواصل"
+};
+
+function openPage(id,updateHash=true){
+  if(!pageNames[id])id="home";
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.toggle("active",page.id===id);
+  });
+  document.querySelectorAll(".nav-link").forEach(link=>{
+    link.classList.toggle("active",link.dataset.page===id);
+  });
+  pageTitle.textContent=pageNames[id];
+  closeMenu();
+  if(updateHash&&location.hash!=="#"+id){
+    history.pushState({page:id},"","#"+id);
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function closeMenu(){
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+  menuBtn.setAttribute("aria-expanded","false");
+}
+
+menuBtn.addEventListener("click",()=>{
+  const opened=sidebar.classList.toggle("open");
+  overlay.classList.toggle("show",opened);
+  menuBtn.setAttribute("aria-expanded",String(opened));
+});
+
+overlay.addEventListener("click",closeMenu);
+
+document.querySelectorAll("[data-page]").forEach(link=>{
+  link.addEventListener("click",event=>{
+    event.preventDefault();
+    openPage(link.dataset.page);
+  });
+});
+
+document.querySelectorAll("[data-open-page]").forEach(link=>{
+  link.addEventListener("click",event=>{
+    event.preventDefault();
+    openPage(link.dataset.openPage);
+  });
+});
+
+window.addEventListener("popstate",()=>{
+  openPage(location.hash.slice(1)||"home",false);
+});
+
+function showAnnouncementMessage(message){
+  const list=document.getElementById("announcementsList");
+  const box=document.createElement("div");
+  box.className="empty";
+  box.textContent=message;
+  list.replaceChildren(box);
+}
+
+function renderAnnouncements(data){
+  const list=document.getElementById("announcementsList");
+  if(!Array.isArray(data)||data.length===0){
+    showAnnouncementMessage("لا توجد إعلانات منشورة حاليًا.");
+    return;
+  }
+
+  const cards=data.map(ad=>{
+    const article=document.createElement("article");
+    article.className="announcement";
+
+    const title=document.createElement("h3");
+    title.textContent=ad.title||"إعلان جديد";
+
+    const date=document.createElement("time");
+    const rawDate=ad.created_at||ad.date;
+    if(rawDate){
+      const parsedDate=new Date(rawDate);
+      date.textContent=Number.isNaN(parsedDate.getTime())
+        ?String(rawDate)
+        :parsedDate.toLocaleDateString("ar-EG",{year:"numeric",month:"long",day:"numeric"});
+    }
+
+    const content=document.createElement("p");
+    content.textContent=ad.content||"";
+
+    article.append(title,date,content);
+
+    if(typeof ad.image==="string"&&ad.image.trim()){
+      const isPublicUrl=ad.image.startsWith("https://")||ad.image.startsWith("http://");
+      const isDataImage=ad.image.startsWith("data:image/");
+      if(isPublicUrl||isDataImage){
+        const img=document.createElement("img");
+        img.src=ad.image;
+        img.alt=ad.title||"صورة الإعلان";
+        img.loading="lazy";
+        img.addEventListener("error",()=>img.remove(),{once:true});
+        article.append(img);
+      }
+    }
+    return article;
+  });
+
+  list.replaceChildren(...cards);
+}
+
+async function loadAnnouncements(){
+  showAnnouncementMessage("جاري تحميل الإعلانات...");
+  try{
+    const {data,error}=await supabaseClient
+      .from("gym_announcements")
+      .select("id,title,content,image,created_at")
+      .order("created_at",{ascending:false});
+
+    if(error){
+      console.error("Supabase announcements error:",error);
+      showAnnouncementMessage("تعذر تحميل الإعلانات. تأكد من إعدادات Supabase والاتصال بالإنترنت.");
+      return;
+    }
+
+    renderAnnouncements(data||[]);
+  }catch(error){
+    console.error(error);
+    showAnnouncementMessage("حدث خطأ أثناء تحميل الإعلانات. حاول تحديث الصفحة.");
+  }
+}
+
+openPage(location.hash.slice(1)||"home",false);
+loadAnnouncements();
+</script>
+</body>
+</html>
