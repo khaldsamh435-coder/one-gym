@@ -4,40 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101410">
-  
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#101410">
+<meta name="description" content="نظام إدارة اشتراكات الجيم والمشتركين والإعلانات والتنبيهات">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="One Gym">
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<meta name="description" content="نظام إدارة اشتراكات الجيم والمشتركين والإعلانات والتنبيهات">
+<link rel="manifest" href="/manifest.json">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <title>Mahmoud Omira Gym | إدارة الجيم</title>
 <style>
 :root{--bg:#101410;--panel:#191f1a;--panel2:#202820;--green:#a3e635;--text:#f4f7f1;--muted:#9ca99c;--border:#303a30;--red:#ff7777;--yellow:#facc15}
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}button{cursor:pointer}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 #login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999999;padding:20px}
 .login-box{width:100%;max-width:390px;padding:30px;background:var(--panel);border:1px solid var(--border);border-radius:18px;text-align:center;box-shadow:0 20px 60px #0005}
 .login-logo{width:58px;height:58px;background:var(--green);color:#17210c;border-radius:16px;display:grid;place-items:center;font-size:30px;font-weight:bold;margin:0 auto 18px}
-.login-box h1{font-size:24px;margin:0 0 10px}.login-box p{color:var(--muted);font-size:14px;line-height:1.8;margin:0 0 20px}
+.login-box h1{font-size:24px;margin:0 0 10px}
+.login-box p{color:var(--muted);font-size:14px;line-height:1.8;margin:0 0 20px}
 .login-box input{width:100%;padding:14px;color:var(--text);background:#111711;border:1px solid var(--border);border-radius:10px;outline:none;text-align:center;letter-spacing:3px;margin-bottom:12px}
-.login-box input:focus{border-color:var(--green)}
 .login-box button{width:100%;padding:13px;border:0;border-radius:10px;background:var(--green);color:#17210c;font-weight:bold}
 .login-error{display:none;color:var(--red);font-size:13px;margin:0 0 12px}
 .layout{display:flex;min-height:100vh}
 .sidebar{width:245px;background:#151a15;border-left:1px solid var(--border);padding:24px 16px;flex-shrink:0}
 .logo{display:flex;align-items:center;gap:12px;margin-bottom:35px}
 .logo-icon{width:45px;height:45px;background:var(--green);color:#17210c;border-radius:13px;display:grid;place-items:center;font-size:24px;font-weight:bold;flex-shrink:0}
-.logo h2{font-size:17px;margin:0 0 5px}.logo p{font-size:12px;color:var(--muted);margin:0}
+.logo h2{font-size:17px;margin:0 0 5px}
+.logo p{font-size:12px;color:var(--muted);margin:0}
 .nav-title{color:var(--muted);font-size:12px;margin:22px 10px 10px}
 .nav-btn{display:flex;align-items:center;gap:11px;width:100%;padding:13px;color:#c6d0c4;background:transparent;border:0;border-radius:10px;text-align:right;margin:4px 0}
 .nav-btn:hover,.nav-btn.active{background:#293624;color:var(--green)}
 .main{flex:1;min-width:0;padding:28px}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
-.topbar h1{font-size:25px;margin:0 0 8px}.muted{color:var(--muted);font-size:13px}
+.topbar h1{font-size:25px;margin:0 0 8px}
+.muted{color:var(--muted);font-size:13px}
 .admin{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:10px 14px}
 .avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#34442b;color:var(--green);font-weight:bold;overflow:hidden;flex-shrink:0}
 .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
@@ -50,31 +50,44 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}
 .section-head h2{font-size:18px;margin:0}
 .btn{border:0;border-radius:9px;padding:11px 15px;background:var(--green);color:#17210c;font-weight:bold}
-.btn:hover{filter:brightness(.93)}.btn-secondary{color:var(--text);background:var(--panel2);border:1px solid var(--border)}.btn-danger{color:var(--red);background:#392323}
+.btn:hover{filter:brightness(.93)}
+.btn-secondary{color:var(--text);background:var(--panel2);border:1px solid var(--border)}
+.btn-danger{color:var(--red);background:#392323}
+button:disabled{opacity:.6;cursor:wait}
 .dashboard-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(260px,1fr);gap:20px}
 .search-row{display:flex;gap:10px;margin-bottom:16px}
 input,select,textarea{min-width:0;width:100%;padding:12px;color:var(--text);background:#111711;border:1px solid var(--border);border-radius:9px;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--green)}
-input[type="file"]{width:100%;padding:10px;color:var(--muted);background:#111711;border:1px solid var(--border);border-radius:10px;cursor:pointer;direction:rtl}
-input[type="file"]::file-selector-button{background:var(--green);color:#17210c;border:0;border-radius:7px;padding:10px 15px;margin-left:12px;font-weight:bold;cursor:pointer;transition:filter .2s}
-input[type="file"]::file-selector-button:hover{filter:brightness(.9)}
+input[type=file]{width:100%;padding:10px;color:var(--muted);background:#111711;border:1px solid var(--border);border-radius:10px;cursor:pointer;direction:rtl}
+input[type=file]::file-selector-button{background:var(--green);color:#17210c;border:0;border-radius:7px;padding:10px 15px;margin-left:12px;font-weight:bold;cursor:pointer}
 textarea{resize:vertical;min-height:145px;line-height:1.8}
-.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;white-space:nowrap}
 th,td{padding:14px 10px;text-align:right;border-bottom:1px solid var(--border);font-size:13px}
-th{color:var(--muted);font-weight:normal}.empty{text-align:center;color:var(--muted);padding:28px}
+th{color:var(--muted);font-weight:normal}
+.empty{text-align:center;color:var(--muted);padding:28px}
 .badge{display:inline-block;padding:6px 9px;border-radius:7px;font-size:11px}
-.badge-green{background:#243b22;color:var(--green)}.badge-red{background:#402323;color:var(--red)}.badge-yellow{background:#40381c;color:var(--yellow)}
-.alert-item{padding:15px 0;border-bottom:1px solid var(--border)}.alert-item:last-child{border-bottom:0}
-.alert-item strong{font-size:14px}.alert-item p{font-size:12px;color:var(--muted);margin:8px 0}
+.badge-green{background:#243b22;color:var(--green)}
+.badge-red{background:#402323;color:var(--red)}
+.badge-yellow{background:#40381c;color:var(--yellow)}
+.alert-item{padding:15px 0;border-bottom:1px solid var(--border)}
+.alert-item:last-child{border-bottom:0}
+.alert-item strong{font-size:14px}
+.alert-item p{font-size:12px;color:var(--muted);margin:8px 0}
 .alert-line{display:flex;justify-content:space-between;gap:10px}
-.quick-actions{display:grid;gap:10px;margin-top:20px}.quick-actions button{text-align:right}
-.page{display:none}.page.active{display:block}
+.quick-actions{display:grid;gap:10px;margin-top:20px}
+.quick-actions button{text-align:right}
+.page{display:none}
+.page.active{display:block}
 .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.field{display:grid;gap:8px}.field label{font-size:13px;color:#c8d1c5}.full{grid-column:1/-1}
+.field{display:grid;gap:8px}
+.field label{font-size:13px;color:#c8d1c5}
+.full{grid-column:1/-1}
 .form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .notice{padding:13px;border-radius:10px;background:#293624;color:#d8edc4;font-size:13px;line-height:1.8;margin-bottom:18px}
 .public-hero{background:linear-gradient(135deg,#263820,#191f1a);border:1px solid var(--border);border-radius:18px;padding:30px;margin-bottom:20px}
-.public-hero h2{font-size:27px;margin-top:0}.public-hero p{color:#c5d0c0;line-height:1.9}
+.public-hero h2{font-size:27px;margin-top:0}
+.public-hero p{color:#c5d0c0;line-height:1.9}
 .footer{color:var(--muted);font-size:12px;text-align:center;margin-top:30px}
 .announcement-card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:17px;margin-bottom:14px}
 .announcement-card h3{margin:0 0 10px;color:var(--green);font-size:18px;overflow-wrap:anywhere}
@@ -89,6 +102,7 @@ th{color:var(--muted);font-weight:normal}.empty{text-align:center;color:var(--mu
 </style>
 </head>
 <body>
+
 <div id="login-screen">
   <form class="login-box" id="login-form">
     <div class="login-logo">G</div>
@@ -99,6 +113,7 @@ th{color:var(--muted);font-weight:normal}.empty{text-align:center;color:var(--mu
     <button type="submit">دخول</button>
   </form>
 </div>
+
 <div class="layout" id="admin-layout" style="display:none">
   <aside class="sidebar">
     <div class="logo"><div class="logo-icon">G</div><div><h2 id="gymNameSide">Mahmoud Omira Gym</h2><p>نظام إدارة الاشتراكات</p></div></div>
@@ -114,8 +129,17 @@ th{color:var(--muted);font-weight:normal}.empty{text-align:center;color:var(--mu
       <button class="nav-btn" data-page="settings">⚙ الإعدادات</button>
     </nav>
   </aside>
+
   <main class="main">
-    <header class="topbar"><div><h1 id="pageTitle">لوحة التحكم</h1><div class="muted" id="today"></div></div><div class="admin"><div class="avatar" id="adminAvatar"><img src="https://files.catbox.moe/4zmekv.jpg" alt="صورة المدرب"></div><div class="admin-text"><strong id="adminName">Coach Mahmoud Omira</strong><div class="muted">مسؤول الجيم</div></div><button class="btn btn-secondary" id="logout-button" type="button">خروج</button></div></header>
+    <header class="topbar">
+      <div><h1 id="pageTitle">لوحة التحكم</h1><div class="muted" id="today"></div></div>
+      <div class="admin">
+        <div class="avatar" id="adminAvatar"><img src="https://files.catbox.moe/4zmekv.jpg" alt="صورة المدرب"></div>
+        <div class="admin-text"><strong id="adminName">Coach Mahmoud Omira</strong><div class="muted">مسؤول الجيم</div></div>
+        <button class="btn btn-secondary" id="logout-button" type="button">خروج</button>
+      </div>
+    </header>
+
     <section class="page active" id="dashboard">
       <div class="notice">أهلاً بك في نظام إدارة الجيم. تابع الاشتراكات وأضف المشتركين والإعلانات من مكان واحد.</div>
       <div class="stats">
@@ -129,77 +153,708 @@ th{color:var(--muted);font-weight:normal}.empty{text-align:center;color:var(--mu
         <div class="card"><div class="section-head"><h2>تنبيهات الاشتراكات</h2></div><div id="alerts"></div><div class="quick-actions"><button class="btn" data-go="add">＋ تسجيل مشترك جديد</button><button class="btn btn-secondary" data-go="subscriptions">متابعة الاشتراكات</button><button class="btn btn-secondary" data-go="announcements">▣ إدارة الإعلانات</button></div></div>
       </div>
     </section>
-    <section class="page" id="members"><div class="card"><div class="section-head"><h2>قائمة المشتركين</h2><button class="btn" data-go="add">＋ إضافة مشترك</button></div><div class="search-row"><input id="searchInput" placeholder="ابحث باسم المشترك أو رقم العضوية"><select id="filterStatus" style="max-width:180px"><option value="all">كل الحالات</option><option value="active">ساري</option><option value="soon">ينتهي قريبًا</option><option value="expired">منتهي</option></select></div><div class="table-wrap"><table><thead><tr><th>رقم العضوية</th><th>الاسم</th><th>النظام</th><th>المدة</th><th>البداية</th><th>الانتهاء</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="membersTable"></tbody></table></div></div></section>
-    <section class="page" id="add"><div class="card"><div class="section-head"><h2 id="formTitle">إضافة مشترك جديد</h2></div><div class="notice">اختر مدة الاشتراك وتاريخ البداية، وسيتم حساب تاريخ الانتهاء تلقائيًا.</div><form id="memberForm"><input type="hidden" id="editId"><div class="form-grid"><div class="field"><label for="fullName">اسم المشترك</label><input id="fullName" maxlength="100" required placeholder="الاسم بالكامل"></div><div class="field"><label for="planType">نوع الاشتراك</label><select id="planType" required><option value="عادي">عادي</option><option value="برايفت">برايفت</option></select></div><div class="field"><label for="duration">مدة الاشتراك</label><select id="duration" required><option value="1">شهر واحد</option><option value="2">شهران</option><option value="3">3 شهور</option></select></div><div class="field"><label for="startDate">تاريخ بداية الاشتراك</label><input type="date" id="startDate" required></div><div class="field full"><label for="endDate">تاريخ انتهاء الاشتراك المحسوب</label><input type="date" id="endDate" readonly></div></div><div class="form-actions"><button class="btn" type="submit">حفظ المشترك</button><button class="btn btn-secondary" type="button" id="cancelEdit">إلغاء</button></div></form></div></section>
-    <section class="page" id="subscriptions"><div class="card"><div class="section-head"><h2>متابعة الاشتراكات</h2></div><div class="search-row"><input id="subscriptionSearch" placeholder="ابحث عن مشترك"><select id="subscriptionFilter" style="max-width:180px"><option value="all">كل الاشتراكات</option><option value="soon">تنتهي خلال 3 أيام</option><option value="expired">منتهية</option></select></div><div class="table-wrap"><table><thead><tr><th>الاسم</th><th>النظام</th><th>الانتهاء</th><th>الحالة</th></tr></thead><tbody id="subscriptionsTable"></tbody></table></div><p class="muted">التنبيهات محلية في هذه النسخة التجريبية، ولم يتم ربط واتساب بعد.</p></div></section>
-    <section class="page" id="trainers"><div class="card"><div class="section-head"><h2>الكباتن</h2></div><div class="notice">يمكن إضافة صور الكباتن وتخصصاتهم ومواعيد عملهم في مرحلة لاحقة.</div><div class="empty">لم تتم إضافة بيانات الكباتن بعد.</div></div></section>
-    <section class="page" id="announcements"><div class="card"><div class="section-head"><h2>▣ إضافة إعلان جديد</h2></div><div class="notice">اكتب عنوان الإعلان ومحتواه، ويمكنك اختيار صورة من جهازك لتظهر مع الإعلان.</div><form id="announcementForm"><div class="form-grid"><div class="field full"><label for="announcementTitle">عنوان الإعلان</label><input id="announcementTitle" maxlength="120" required placeholder="مثال: عرض الاشتراكات الجديدة"></div><div class="field full"><label for="announcementContent">محتوى الإعلان</label><textarea id="announcementContent" maxlength="3000" required placeholder="اكتب تفاصيل الإعلان هنا..."></textarea></div><div class="field full"><label for="announcementImage">صورة الإعلان (اختياري)</label><input id="announcementImage" type="file" accept="image/*"><div class="muted">الحد الأقصى للصورة 2 ميجابايت.</div><div id="imagePreview" class="image-preview" style="display:none"><img id="previewImage" alt="معاينة صورة الإعلان"><button class="btn btn-secondary" type="button" id="removeImage" style="margin-top:12px">إزالة الصورة</button></div></div></div><div class="form-actions"><button class="btn" type="submit">▣ نشر الإعلان</button><button class="btn btn-secondary" type="reset" id="resetAnnouncement">مسح الحقول</button></div></form></div><div class="card" style="margin-top:20px"><div class="section-head"><h2>الإعلانات المنشورة</h2><span class="announcement-count" id="announcementCount">0 إعلان</span></div><div id="announcementsList"><div class="empty">لا توجد إعلانات حتى الآن.</div></div></div></section>
-    <section class="page" id="about"><div class="public-hero"><h2 id="aboutGymName">Mahmoud Omira Gym</h2><p id="aboutDescription">مكان للتدريب والتطور وبناء عادات صحية.</p><button class="btn" data-go="settings">تعديل بيانات الجيم</button></div><div class="card"><h2>معلومات التواصل</h2><p class="muted">أضف عنوان الجيم ورقم التواصل ومواعيد العمل من الإعدادات.</p></div></section>
-    <section class="page" id="settings"><div class="card"><div class="section-head"><h2>إعدادات الجيم</h2></div><form id="settingsForm"><div class="form-grid"><div class="field"><label for="settingGymName">اسم الجيم</label><input id="settingGymName" required></div><div class="field"><label for="settingAdmin">اسم المسؤول</label><input id="settingAdmin" required></div><div class="field full"><label for="settingDescription">نبذة عن الجيم</label><input id="settingDescription" maxlength="500"></div></div><div class="form-actions"><button class="btn" type="submit">حفظ الإعدادات</button></div></form><p class="muted">الإعدادات والإعلانات والمشتركون تُحفظ محليًا في هذا المتصفح في النسخة التجريبية.</p></div></section>
+
+    <section class="page" id="members">
+      <div class="card"><div class="section-head"><h2>قائمة المشتركين</h2><button class="btn" data-go="add">＋ إضافة مشترك</button></div>
+        <div class="search-row"><input id="searchInput" placeholder="ابحث باسم المشترك أو رقم العضوية"><select id="filterStatus" style="max-width:180px"><option value="all">كل الحالات</option><option value="active">ساري</option><option value="soon">ينتهي قريبًا</option><option value="expired">منتهي</option></select></div>
+        <div class="table-wrap"><table><thead><tr><th>رقم العضوية</th><th>الاسم</th><th>النظام</th><th>المدة</th><th>البداية</th><th>الانتهاء</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="membersTable"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="page" id="add">
+      <div class="card"><div class="section-head"><h2 id="formTitle">إضافة مشترك جديد</h2></div>
+        <div class="notice">اختر مدة الاشتراك وتاريخ البداية، وسيتم حساب تاريخ الانتهاء تلقائيًا.</div>
+        <form id="memberForm"><input type="hidden" id="editId"><div class="form-grid">
+          <div class="field"><label for="fullName">اسم المشترك</label><input id="fullName" maxlength="100" required placeholder="الاسم بالكامل"></div>
+          <div class="field"><label for="planType">نوع الاشتراك</label><select id="planType" required><option value="عادي">عادي</option><option value="برايفت">برايفت</option></select></div>
+          <div class="field"><label for="duration">مدة الاشتراك</label><select id="duration" required><option value="1">شهر واحد</option><option value="2">شهران</option><option value="3">3 شهور</option></select></div>
+          <div class="field"><label for="startDate">تاريخ بداية الاشتراك</label><input type="date" id="startDate" required></div>
+          <div class="field full"><label for="endDate">تاريخ انتهاء الاشتراك المحسوب</label><input type="date" id="endDate" readonly></div>
+        </div><div class="form-actions"><button class="btn" type="submit">حفظ المشترك</button><button class="btn btn-secondary" type="button" id="cancelEdit">إلغاء</button></div></form>
+      </div>
+    </section>
+
+    <section class="page" id="subscriptions">
+      <div class="card"><div class="section-head"><h2>متابعة الاشتراكات</h2></div>
+        <div class="search-row"><input id="subscriptionSearch" placeholder="ابحث عن مشترك"><select id="subscriptionFilter" style="max-width:180px"><option value="all">كل الاشتراكات</option><option value="soon">تنتهي خلال 3 أيام</option><option value="expired">منتهية</option></select></div>
+        <div class="table-wrap"><table><thead><tr><th>الاسم</th><th>النظام</th><th>الانتهاء</th><th>الحالة</th></tr></thead><tbody id="subscriptionsTable"></tbody></table></div>
+        <p class="muted">التنبيهات محلية في هذه النسخة التجريبية، ولم يتم ربط واتساب بعد.</p>
+      </div>
+    </section>
+
+    <section class="page" id="trainers">
+      <div class="card"><div class="section-head"><h2>الكباتن</h2></div><div class="notice">يمكن إضافة صور الكباتن وتخصصاتهم ومواعيد عملهم في مرحلة لاحقة.</div><div class="empty">لم تتم إضافة بيانات الكباتن بعد.</div></div>
+    </section>
+
+    <section class="page" id="announcements">
+      <div class="card">
+        <div class="section-head"><h2>▣ إضافة إعلان جديد</h2></div>
+        <div class="notice">اكتب عنوان الإعلان ومحتواه، ويمكنك اختيار صورة من جهازك لتظهر مع الإعلان.</div>
+        <form id="announcementForm">
+          <div class="form-grid">
+            <div class="field full"><label for="announcementTitle">عنوان الإعلان</label><input id="announcementTitle" maxlength="120" required placeholder="مثال: عرض الاشتراكات الجديدة"></div>
+            <div class="field full"><label for="announcementContent">محتوى الإعلان</label><textarea id="announcementContent" maxlength="3000" required placeholder="اكتب تفاصيل الإعلان هنا..."></textarea></div>
+            <div class="field full">
+              <label for="announcementImage">صورة الإعلان (اختياري)</label>
+              <input id="announcementImage" type="file" accept="image/jpeg,image/png,image/webp">
+              <div class="muted">الصيغ المدعومة JPG وPNG وWEBP، والحد الأقصى 2 ميجابايت.</div>
+              <div id="imagePreview" class="image-preview" style="display:none"><img id="previewImage" alt="معاينة صورة الإعلان"><button class="btn btn-secondary" type="button" id="removeImage" style="margin-top:12px">إزالة الصورة</button></div>
+            </div>
+          </div>
+          <div class="form-actions"><button class="btn" type="submit">▣ نشر الإعلان</button><button class="btn btn-secondary" type="reset" id="resetAnnouncement">مسح الحقول</button></div>
+        </form>
+      </div>
+      <div class="card" style="margin-top:20px">
+        <div class="section-head"><h2>الإعلانات المنشورة</h2><span class="announcement-count" id="announcementCount">جاري التحميل...</span></div>
+        <div id="announcementsList"><div class="empty">جاري تحميل الإعلانات...</div></div>
+      </div>
+    </section>
+
+    <section class="page" id="about">
+      <div class="public-hero"><h2 id="aboutGymName">Mahmoud Omira Gym</h2><p id="aboutDescription">مكان للتدريب والتطور وبناء عادات صحية.</p><button class="btn" data-go="settings">تعديل بيانات الجيم</button></div>
+      <div class="card"><h2>معلومات التواصل</h2><p class="muted">أضف عنوان الجيم ورقم التواصل ومواعيد العمل من الإعدادات.</p></div>
+    </section>
+
+    <section class="page" id="settings">
+      <div class="card"><div class="section-head"><h2>إعدادات الجيم</h2></div>
+        <form id="settingsForm"><div class="form-grid">
+          <div class="field"><label for="settingGymName">اسم الجيم</label><input id="settingGymName" required></div>
+          <div class="field"><label for="settingAdmin">اسم المسؤول</label><input id="settingAdmin" required></div>
+          <div class="field full"><label for="settingDescription">نبذة عن الجيم</label><input id="settingDescription" maxlength="500"></div>
+        </div><div class="form-actions"><button class="btn" type="submit">حفظ الإعدادات</button></div></form>
+        <p class="muted">المشتركون والإعدادات محفوظون محليًا في هذا المتصفح. الإعلانات محفوظة في Supabase لتظهر على صفحة الجمهور.</p>
+      </div>
+    </section>
+
     <footer class="footer" id="footerText">Mahmoud Omira Gym · نظام إدارة الاشتراكات</footer>
   </main>
 </div>
+
 <script>
-  const SUPABASE_URL = "https://mxrtbycasfocqmpiubwm.supabase.co";
+const SUPABASE_URL = "https://mxrtbycasfocqmpiubwm.supabase.co";
 const SUPABASE_KEY = "sb_publishable_iX6kZ-Q0c1A-0cL853X5Rg_GmqGOHGy";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-const ADMIN_PASSWORD="471047015";
-const LOGIN_KEY="one_gym_admin_session";
-const $=id=>document.getElementById(id);
-function openAdmin(){ $("login-screen").style.display="none"; $("admin-layout").style.display="flex"; }
-function closeAdmin(){sessionStorage.removeItem(LOGIN_KEY);$("admin-layout").style.display="none";$("login-screen").style.display="flex";$("admin-password").value="";$("login-error").style.display="none";}
-$("login-form").addEventListener("submit",event=>{event.preventDefault();if($("admin-password").value===ADMIN_PASSWORD){sessionStorage.setItem(LOGIN_KEY,"yes");openAdmin();$("admin-password").value="";}else{$("login-error").style.display="block";$("admin-password").value="";$("admin-password").focus();}});
-$("logout-button").addEventListener("click",closeAdmin);
-if(sessionStorage.getItem(LOGIN_KEY)==="yes")openAdmin();
+const ADMIN_PASSWORD = "471047015";
+const LOGIN_KEY = "one_gym_admin_session";
+const $ = id => document.getElementById(id);
 
-const STORAGE_KEY="gym_demo_members_v1",SETTINGS_KEY="gym_demo_settings_v1",ANNOUNCEMENTS_KEY="gym_demo_announcements_v1";
-const GYM_INFO={gymName:"Mahmoud Omira Gym",adminName:"Coach Mahmoud Omira",description:"مكان للتدريب والتطور وبناء عادات صحية.",logoLetter:"M",footerText:"Mahmoud Omira Gym · نظام إدارة الاشتراكات"};
-let members=[],settings={...GYM_INFO},announcements=[],selectedAnnouncementImage="";
-try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");if(Array.isArray(saved))members=saved;}catch{members=[]}
-try{const saved=JSON.parse(localStorage.getItem(SETTINGS_KEY)||"null");if(saved&&typeof saved==="object")settings={...GYM_INFO,...saved};}catch{settings={...GYM_INFO}}
-try{const saved=JSON.parse(localStorage.getItem(ANNOUNCEMENTS_KEY)||"[]");if(Array.isArray(saved))announcements=saved;}catch{announcements=[]}
-function saveSettings(){localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings))}
-function applySettings(){$("gymNameSide").textContent=settings.gymName;$("aboutGymName").textContent=settings.gymName;$("adminName").textContent=settings.adminName;$("aboutDescription").textContent=settings.description;$("footerText").textContent=settings.footerText||settings.gymName;$("settingGymName").value=settings.gymName;$("settingAdmin").value=settings.adminName;$("settingDescription").value=settings.description;document.title=settings.gymName+" | إدارة الجيم";document.querySelector('meta[name="description"]').content=settings.description}
-const todayString=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
-function addMonths(dateString,months){const [y,m,d]=dateString.split("-").map(Number);const date=new Date(y,m-1,d);const targetDay=date.getDate();date.setDate(1);date.setMonth(date.getMonth()+months);const lastDay=new Date(date.getFullYear(),date.getMonth()+1,0).getDate();date.setDate(Math.min(targetDay,lastDay));date.setDate(date.getDate()-1);return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`}
-function calculateEndDate(){if(!$("startDate").value){$("endDate").value="";return}$("endDate").value=addMonths($("startDate").value,Number($("duration").value))}
-function daysUntil(dateString){const today=new Date(todayString()+"T00:00:00"),date=new Date(dateString+"T00:00:00");return Math.round((date-today)/86400000)}
-function statusOf(member){const days=daysUntil(member.endDate);if(days<0)return"expired";if(days<=3)return"soon";return"active"}
-function statusBadge(member){const status=statusOf(member),labels={active:["ساري","badge-green"],soon:["ينتهي قريبًا","badge-yellow"],expired:["منتهي","badge-red"]};return `<span class="badge ${labels[status][1]}">${labels[status][0]}</span>`}
-function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]))}
-function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(members))}
-function saveAnnouncements(){try{localStorage.setItem(ANNOUNCEMENTS_KEY,JSON.stringify(announcements));return true}catch{alert("مساحة التخزين غير كافية لحفظ الإعلان. جرّب صورة أصغر.");return false}}
-const pageTitles={dashboard:"لوحة التحكم",members:"المشتركون",add:"إضافة مشترك",subscriptions:"الاشتراكات",trainers:"الكباتن",announcements:"إضافة إعلان",about:"عن الجيم",settings:"الإعدادات"};
-function showPage(id){document.querySelectorAll(".page").forEach(page=>page.classList.toggle("active",page.id===id));document.querySelectorAll(".nav-btn").forEach(button=>button.classList.toggle("active",button.dataset.page===id));$("pageTitle").textContent=pageTitles[id]||"إدارة الجيم";if(id==="members")renderMembers();if(id==="subscriptions")renderSubscriptions();if(id==="announcements")renderAnnouncements();window.scrollTo({top:0,behavior:"smooth"})}
-document.querySelectorAll("[data-page]").forEach(button=>button.addEventListener("click",()=>showPage(button.dataset.page)));
-document.querySelectorAll("[data-go]").forEach(button=>button.addEventListener("click",()=>{if(button.dataset.go==="add")resetForm();showPage(button.dataset.go)}));
-function resetForm(){$("memberForm").reset();$("editId").value="";$("formTitle").textContent="إضافة مشترك جديد";$("startDate").value=todayString();$("duration").value="1";calculateEndDate()}
-$("startDate").addEventListener("change",calculateEndDate);$("duration").addEventListener("change",calculateEndDate);$("cancelEdit").addEventListener("click",()=>{resetForm();showPage("members")});
-$("memberForm").addEventListener("submit",event=>{event.preventDefault();const id=$("editId").value,startDate=$("startDate").value,duration=Number($("duration").value);const member={id:id||(crypto.randomUUID?crypto.randomUUID():String(Date.now())),fullName:$("fullName").value.trim(),planType:$("planType").value,duration,startDate,endDate:addMonths(startDate,duration),createdAt:id?(members.find(m=>m.id===id)?.createdAt||Date.now()):Date.now()};if(!member.fullName)return;if(id)members=members.map(m=>m.id===id?member:m);else members.unshift(member);persist();resetForm();renderAll();showPage("members")});
-function editMember(id){const member=members.find(m=>m.id===id);if(!member)return;$("editId").value=member.id;$("fullName").value=member.fullName;$("planType").value=member.planType;$("duration").value=String(member.duration);$("startDate").value=member.startDate;$("formTitle").textContent="تعديل بيانات المشترك";calculateEndDate();showPage("add")}
-function deleteMember(id){const member=members.find(m=>m.id===id);if(!member||!confirm("هل تريد حذف المشترك "+member.fullName+"؟"))return;members=members.filter(m=>m.id!==id);persist();renderAll()}
-function memberRow(member,full=false){const safeId=escapeHTML(member.id),actions=`<button class="btn btn-secondary" onclick="editMember('${safeId}')">تعديل</button> <button class="btn btn-danger" onclick="deleteMember('${safeId}')">حذف</button>`;if(full)return `<tr><td>${escapeHTML(member.id.slice(0,8))}</td><td>${escapeHTML(member.fullName)}</td><td>${escapeHTML(member.planType)}</td><td>${member.duration} شهر</td><td>${escapeHTML(member.startDate)}</td><td>${escapeHTML(member.endDate)}</td><td>${statusBadge(member)}</td><td>${actions}</td></tr>`;return `<tr><td>${escapeHTML(member.fullName)}</td><td>${escapeHTML(member.planType)}</td><td>${escapeHTML(member.endDate)}</td><td>${statusBadge(member)}</td></tr>`}
-function renderMembers(){const query=$("searchInput").value.trim().toLowerCase(),filter=$("filterStatus").value;const list=members.filter(member=>{const matches=member.fullName.toLowerCase().includes(query)||member.id.toLowerCase().includes(query);return matches&&(filter==="all"||statusOf(member)===filter)});$("membersTable").innerHTML=list.length?list.map(member=>memberRow(member,true)).join(""):`<tr><td colspan="8" class="empty">لا يوجد مشتركون مطابقون للبحث.</td></tr>`}
-function renderSubscriptions(){const query=$("subscriptionSearch").value.trim().toLowerCase(),filter=$("subscriptionFilter").value;const list=members.filter(member=>{const status=statusOf(member),matches=member.fullName.toLowerCase().includes(query),statusMatch=filter==="all"?status!=="active":status===filter;return matches&&statusMatch});$("subscriptionsTable").innerHTML=list.length?list.map(member=>memberRow(member,false)).join(""):`<tr><td colspan="4" class="empty">لا توجد اشتراكات مطابقة.</td></tr>`}
-function renderDashboard(){$("totalMembers").textContent=members.length;$("activeMembers").textContent=members.filter(m=>statusOf(m)==="active").length;$("soonMembers").textContent=members.filter(m=>statusOf(m)==="soon").length;$("expiredMembers").textContent=members.filter(m=>statusOf(m)==="expired").length;const latest=[...members].sort((a,b)=>b.createdAt-a.createdAt).slice(0,5);$("recentTable").innerHTML=latest.length?latest.map(member=>memberRow(member,false)).join(""):`<tr><td colspan="4" class="empty">أضف أول مشترك لعرض البيانات هنا.</td></tr>`;const alerts=members.filter(m=>statusOf(m)!=="active").sort((a,b)=>a.endDate.localeCompare(b.endDate)).slice(0,6);$("alerts").innerHTML=alerts.length?alerts.map(member=>{const status=statusOf(member),message=status==="expired"?"انتهى الاشتراك ويحتاج إلى مراجعة.":"متبقي "+daysUntil(member.endDate)+" يوم على الانتهاء.";return `<div class="alert-item"><div class="alert-line"><strong>${escapeHTML(member.fullName)}</strong>${statusBadge(member)}</div><p>${escapeHTML(member.planType)} · ${escapeHTML(member.endDate)}</p><p>${message}</p></div>`}).join(""):`<div class="empty">لا توجد تنبيهات حاليًا.</div>`}
-$("settingsForm").addEventListener("submit",event=>{event.preventDefault();settings={...settings,gymName:$("settingGymName").value.trim()||GYM_INFO.gymName,adminName:$("settingAdmin").value.trim()||GYM_INFO.adminName,description:$("settingDescription").value.trim()||GYM_INFO.description};saveSettings();applySettings();alert("تم حفظ الإعدادات على هذا الجهاز.")});
-$("searchInput").addEventListener("input",renderMembers);$("filterStatus").addEventListener("change",renderMembers);$("subscriptionSearch").addEventListener("input",renderSubscriptions);$("subscriptionFilter").addEventListener("change",renderSubscriptions);
-function renderAnnouncements(){$("announcementCount").textContent=announcements.length+" إعلان";if(!announcements.length){$("announcementsList").innerHTML=`<div class="empty">لا توجد إعلانات حتى الآن.</div>`;return}$("announcementsList").innerHTML=[...announcements].sort((a,b)=>b.createdAt-a.createdAt).map(ad=>`<article class="announcement-card"><h3>${escapeHTML(ad.title)}</h3><div class="announcement-date">${escapeHTML(ad.date)}</div><div class="announcement-content">${escapeHTML(ad.content)}</div>${ad.image?`<img class="announcement-image" src="${ad.image}" alt="${escapeHTML(ad.title)}" loading="lazy">`:""}<div class="form-actions"><button class="btn btn-danger" type="button" onclick="deleteAnnouncement('${escapeHTML(ad.id)}')">حذف الإعلان</button></div></article>`).join("")}
-$("announcementImage").addEventListener("change",event=>{const file=event.target.files[0];if(!file){clearAnnouncementImage();return}if(!file.type.startsWith("image/")){alert("اختار ملف صورة صحيح.");event.target.value="";clearAnnouncementImage();return}if(file.size>2*1024*1024){alert("حجم الصورة لازم يكون 2 ميجابايت أو أقل.");event.target.value="";clearAnnouncementImage();return}const reader=new FileReader();reader.onload=()=>{selectedAnnouncementImage=reader.result;$("previewImage").src=selectedAnnouncementImage;$("imagePreview").style.display="block"};reader.onerror=()=>{alert("تعذر قراءة الصورة. حاول مرة أخرى.");clearAnnouncementImage()};reader.readAsDataURL(file)});
-function clearAnnouncementImage(){selectedAnnouncementImage="";$("announcementImage").value="";$("previewImage").removeAttribute("src");$("imagePreview").style.display="none"}
-$("removeImage").addEventListener("click",clearAnnouncementImage);$("resetAnnouncement").addEventListener("click",clearAnnouncementImage);
-$("announcementForm").addEventListener("submit",event=>{event.preventDefault();const title=$("announcementTitle").value.trim(),content=$("announcementContent").value.trim();if(!title||!content){alert("اكتب عنوان الإعلان ومحتواه.");return}const announcement={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title,content,image:selectedAnnouncementImage,date:new Intl.DateTimeFormat("ar-EG",{dateStyle:"medium"}).format(new Date()),createdAt:Date.now()};announcements.unshift(announcement);if(!saveAnnouncements()){announcements.shift();return}$("announcementForm").reset();clearAnnouncementImage();renderAnnouncements();alert("تم حفظ الإعلان في هذا المتصفح.")});
-function deleteAnnouncement(id){const announcement=announcements.find(ad=>ad.id===id);if(!announcement||!confirm('هل تريد حذف الإعلان "'+announcement.title+'"؟'))return;const oldAnnouncements=announcements;announcements=announcements.filter(ad=>ad.id!==id);if(!saveAnnouncements()){announcements=oldAnnouncements;return}renderAnnouncements()}
-function renderAll(){renderDashboard();renderMembers();renderSubscriptions();renderAnnouncements()}
-$("today").textContent=new Intl.DateTimeFormat("ar-EG",{weekday:"long",year:"numeric",month:"long",day:"numeric"}).format(new Date());
-$("startDate").value=todayString();calculateEndDate();applySettings();renderAll();
-</script>
-  
-<script>
+function openAdmin() {
+  $("login-screen").style.display = "none";
+  $("admin-layout").style.display = "flex";
+}
+
+function closeAdmin() {
+  sessionStorage.removeItem(LOGIN_KEY);
+  $("admin-layout").style.display = "none";
+  $("login-screen").style.display = "flex";
+  $("admin-password").value = "";
+  $("login-error").style.display = "none";
+}
+
+$("login-form").addEventListener("submit", event => {
+  event.preventDefault();
+  if ($("admin-password").value === ADMIN_PASSWORD) {
+    sessionStorage.setItem(LOGIN_KEY, "yes");
+    openAdmin();
+    $("admin-password").value = "";
+    renderAnnouncements();
+  } else {
+    $("login-error").style.display = "block";
+    $("admin-password").value = "";
+    $("admin-password").focus();
+  }
+});
+
+$("logout-button").addEventListener("click", closeAdmin);
+
+if (sessionStorage.getItem(LOGIN_KEY) === "yes") openAdmin();
+
+const STORAGE_KEY = "gym_demo_members_v1";
+const SETTINGS_KEY = "gym_demo_settings_v1";
+
+const GYM_INFO = {
+  gymName: "Mahmoud Omira Gym",
+  adminName: "Coach Mahmoud Omira",
+  description: "مكان للتدريب والتطور وبناء عادات صحية.",
+  logoLetter: "M",
+  footerText: "Mahmoud Omira Gym · نظام إدارة الاشتراكات"
+};
+
+let members = [];
+let settings = { ...GYM_INFO };
+let selectedAnnouncementImage = null;
+let previewObjectUrl = null;
+let isPublishingAnnouncement = false;
+
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  if (Array.isArray(saved)) members = saved;
+} catch {
+  members = [];
+}
+
+try {
+  const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null");
+  if (saved && typeof saved === "object") settings = { ...GYM_INFO, ...saved };
+} catch {
+  settings = { ...GYM_INFO };
+}
+
+function saveSettings() {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+function applySettings() {
+  $("gymNameSide").textContent = settings.gymName;
+  $("aboutGymName").textContent = settings.gymName;
+  $("adminName").textContent = settings.adminName;
+  $("aboutDescription").textContent = settings.description;
+  $("footerText").textContent = settings.footerText || settings.gymName;
+  $("settingGymName").value = settings.gymName;
+  $("settingAdmin").value = settings.adminName;
+  $("settingDescription").value = settings.description;
+  document.title = settings.gymName + " | إدارة الجيم";
+  document.querySelector('meta[name="description"]').content = settings.description;
+}
+
+const todayString = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+
+function addMonths(dateString, months) {
+  const [y, m, d] = dateString.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  const targetDay = date.getDate();
+  date.setDate(1);
+  date.setMonth(date.getMonth() + months);
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  date.setDate(Math.min(targetDay, lastDay));
+  date.setDate(date.getDate() - 1);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function calculateEndDate() {
+  if (!$("startDate").value) {
+    $("endDate").value = "";
+    return;
+  }
+  $("endDate").value = addMonths($("startDate").value, Number($("duration").value));
+}
+
+function daysUntil(dateString) {
+  const today = new Date(todayString() + "T00:00:00");
+  const date = new Date(dateString + "T00:00:00");
+  return Math.round((date - today) / 86400000);
+}
+
+function statusOf(member) {
+  const days = daysUntil(member.endDate);
+  if (days < 0) return "expired";
+  if (days <= 3) return "soon";
+  return "active";
+}
+
+function statusBadge(member) {
+  const status = statusOf(member);
+  const labels = {
+    active: ["ساري", "badge-green"],
+    soon: ["ينتهي قريبًا", "badge-yellow"],
+    expired: ["منتهي", "badge-red"]
+  };
+  return `<span class="badge ${labels[status][1]}">${labels[status][0]}</span>`;
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[char]));
+}
+
+function persist() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(members));
+}
+
+const pageTitles = {
+  dashboard: "لوحة التحكم",
+  members: "المشتركون",
+  add: "إضافة مشترك",
+  subscriptions: "الاشتراكات",
+  trainers: "الكباتن",
+  announcements: "إضافة إعلان",
+  about: "عن الجيم",
+  settings: "الإعدادات"
+};
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+
+  document.querySelectorAll(".nav-btn").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
+
+  $("pageTitle").textContent = pageTitles[id] || "إدارة الجيم";
+
+  if (id === "members") renderMembers();
+  if (id === "subscriptions") renderSubscriptions();
+  if (id === "announcements") renderAnnouncements();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", () => showPage(button.dataset.page));
+});
+
+document.querySelectorAll("[data-go]").forEach(button => {
+  button.addEventListener("click", () => {
+    if (button.dataset.go === "add") resetForm();
+    showPage(button.dataset.go);
+  });
+});
+
+function resetForm() {
+  $("memberForm").reset();
+  $("editId").value = "";
+  $("formTitle").textContent = "إضافة مشترك جديد";
+  $("startDate").value = todayString();
+  $("duration").value = "1";
+  calculateEndDate();
+}
+
+$("startDate").addEventListener("change", calculateEndDate);
+$("duration").addEventListener("change", calculateEndDate);
+
+$("cancelEdit").addEventListener("click", () => {
+  resetForm();
+  showPage("members");
+});
+
+$("memberForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const id = $("editId").value;
+  const startDate = $("startDate").value;
+  const duration = Number($("duration").value);
+
+  const member = {
+    id: id || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+    fullName: $("fullName").value.trim(),
+    planType: $("planType").value,
+    duration,
+    startDate,
+    endDate: addMonths(startDate, duration),
+    createdAt: id ? (members.find(m => m.id === id)?.createdAt || Date.now()) : Date.now()
+  };
+
+  if (!member.fullName) return;
+
+  if (id) {
+    members = members.map(m => m.id === id ? member : m);
+  } else {
+    members.unshift(member);
+  }
+
+  persist();
+  resetForm();
+  renderAll();
+  showPage("members");
+});
+
+function editMember(id) {
+  const member = members.find(m => m.id === id);
+  if (!member) return;
+
+  $("editId").value = member.id;
+  $("fullName").value = member.fullName;
+  $("planType").value = member.planType;
+  $("duration").value = String(member.duration);
+  $("startDate").value = member.startDate;
+  $("formTitle").textContent = "تعديل بيانات المشترك";
+
+  calculateEndDate();
+  showPage("add");
+}
+
+function deleteMember(id) {
+  const member = members.find(m => m.id === id);
+
+  if (!member || !confirm("هل تريد حذف المشترك " + member.fullName + "؟")) return;
+
+  members = members.filter(m => m.id !== id);
+  persist();
+  renderAll();
+}
+
+function memberRow(member, full = false) {
+  const safeId = escapeHTML(member.id);
+  const actions = `<button class="btn btn-secondary" onclick="editMember('${safeId}')">تعديل</button> <button class="btn btn-danger" onclick="deleteMember('${safeId}')">حذف</button>`;
+
+  if (full) {
+    return `<tr>
+      <td>${escapeHTML(member.id.slice(0, 8))}</td>
+      <td>${escapeHTML(member.fullName)}</td>
+      <td>${escapeHTML(member.planType)}</td>
+      <td>${member.duration} شهر</td>
+      <td>${escapeHTML(member.startDate)}</td>
+      <td>${escapeHTML(member.endDate)}</td>
+      <td>${statusBadge(member)}</td>
+      <td>${actions}</td>
+    </tr>`;
+  }
+
+  return `<tr>
+    <td>${escapeHTML(member.fullName)}</td>
+    <td>${escapeHTML(member.planType)}</td>
+    <td>${escapeHTML(member.endDate)}</td>
+    <td>${statusBadge(member)}</td>
+  </tr>`;
+}
+
+function renderMembers() {
+  const query = $("searchInput").value.trim().toLowerCase();
+  const filter = $("filterStatus").value;
+
+  const list = members.filter(member => {
+    const matches = member.fullName.toLowerCase().includes(query) || member.id.toLowerCase().includes(query);
+    return matches && (filter === "all" || statusOf(member) === filter);
+  });
+
+  $("membersTable").innerHTML = list.length
+    ? list.map(member => memberRow(member, true)).join("")
+    : `<tr><td colspan="8" class="empty">لا يوجد مشتركون مطابقون للبحث.</td></tr>`;
+}
+
+function renderSubscriptions() {
+  const query = $("subscriptionSearch").value.trim().toLowerCase();
+  const filter = $("subscriptionFilter").value;
+
+  const list = members.filter(member => {
+    const status = statusOf(member);
+    const matches = member.fullName.toLowerCase().includes(query);
+    const statusMatch = filter === "all" ? status !== "active" : status === filter;
+    return matches && statusMatch;
+  });
+
+  $("subscriptionsTable").innerHTML = list.length
+    ? list.map(member => memberRow(member, false)).join("")
+    : `<tr><td colspan="4" class="empty">لا توجد اشتراكات مطابقة.</td></tr>`;
+}
+
+function renderDashboard() {
+  $("totalMembers").textContent = members.length;
+  $("activeMembers").textContent = members.filter(m => statusOf(m) === "active").length;
+  $("soonMembers").textContent = members.filter(m => statusOf(m) === "soon").length;
+  $("expiredMembers").textContent = members.filter(m => statusOf(m) === "expired").length;
+
+  const latest = [...members].sort((a, b) => b.createdAt - a.createdAt).slice(0, 5);
+
+  $("recentTable").innerHTML = latest.length
+    ? latest.map(member => memberRow(member, false)).join("")
+    : `<tr><td colspan="4" class="empty">أضف أول مشترك لعرض البيانات هنا.</td></tr>`;
+
+  const alerts = members
+    .filter(m => statusOf(m) !== "active")
+    .sort((a, b) => a.endDate.localeCompare(b.endDate))
+    .slice(0, 6);
+
+  $("alerts").innerHTML = alerts.length
+    ? alerts.map(member => {
+        const status = statusOf(member);
+        const message = status === "expired"
+          ? "انتهى الاشتراك ويحتاج إلى مراجعة."
+          : "متبقي " + daysUntil(member.endDate) + " يوم على الانتهاء.";
+
+        return `<div class="alert-item">
+          <div class="alert-line"><strong>${escapeHTML(member.fullName)}</strong>${statusBadge(member)}</div>
+          <p>${escapeHTML(member.planType)} · ${escapeHTML(member.endDate)}</p>
+          <p>${message}</p>
+        </div>`;
+      }).join("")
+    : `<div class="empty">لا توجد تنبيهات حاليًا.</div>`;
+}
+
+$("settingsForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  settings = {
+    ...settings,
+    gymName: $("settingGymName").value.trim() || GYM_INFO.gymName,
+    adminName: $("settingAdmin").value.trim() || GYM_INFO.adminName,
+    description: $("settingDescription").value.trim() || GYM_INFO.description
+  };
+
+  saveSettings();
+  applySettings();
+  alert("تم حفظ الإعدادات على هذا الجهاز.");
+});
+
+$("searchInput").addEventListener("input", renderMembers);
+$("filterStatus").addEventListener("change", renderMembers);
+$("subscriptionSearch").addEventListener("input", renderSubscriptions);
+$("subscriptionFilter").addEventListener("change", renderSubscriptions);
+
+function releasePreviewUrl() {
+  if (previewObjectUrl) {
+    URL.revokeObjectURL(previewObjectUrl);
+    previewObjectUrl = null;
+  }
+}
+
+function clearAnnouncementImage() {
+  selectedAnnouncementImage = null;
+  $("announcementImage").value = "";
+  releasePreviewUrl();
+  $("previewImage").removeAttribute("src");
+  $("imagePreview").style.display = "none";
+}
+
+$("announcementImage").addEventListener("change", event => {
+  const file = event.target.files[0];
+
+  if (!file) {
+    clearAnnouncementImage();
+    return;
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+  if (!allowedTypes.includes(file.type)) {
+    alert("اختار صورة بصيغة JPG أو PNG أو WEBP.");
+    clearAnnouncementImage();
+    return;
+  }
+
+  if (file.size > 2 * 1024 * 1024) {
+    alert("حجم الصورة لازم يكون 2 ميجابايت أو أقل.");
+    clearAnnouncementImage();
+    return;
+  }
+
+  selectedAnnouncementImage = file;
+  releasePreviewUrl();
+
+  previewObjectUrl = URL.createObjectURL(file);
+  $("previewImage").src = previewObjectUrl;
+  $("imagePreview").style.display = "block";
+});
+
+$("removeImage").addEventListener("click", clearAnnouncementImage);
+
+$("resetAnnouncement").addEventListener("click", () => {
+  setTimeout(clearAnnouncementImage, 0);
+});
+
+async function renderAnnouncements() {
+  const list = $("announcementsList");
+  const count = $("announcementCount");
+
+  count.textContent = "جاري التحميل...";
+  list.textContent = "جاري تحميل الإعلانات...";
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("gym_announcements")
+      .select("id,title,content,image,created_at")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    count.textContent = data.length + " إعلان";
+    list.replaceChildren();
+
+    if (!data.length) {
+      list.innerHTML = `<div class="empty">لا توجد إعلانات حتى الآن.</div>`;
+      return;
+    }
+
+    data.forEach(ad => {
+      const card = document.createElement("article");
+      card.className = "announcement-card";
+
+      const title = document.createElement("h3");
+      title.textContent = ad.title || "إعلان جديد";
+
+      const date = document.createElement("div");
+      date.className = "announcement-date";
+      date.textContent = ad.created_at
+        ? new Date(ad.created_at).toLocaleDateString("ar-EG")
+        : "";
+
+      const content = document.createElement("div");
+      content.className = "announcement-content";
+      content.textContent = ad.content || "";
+
+      card.append(title, date, content);
+
+      if (ad.image) {
+        const img = document.createElement("img");
+        img.className = "announcement-image";
+        img.src = ad.image;
+        img.alt = ad.title || "صورة الإعلان";
+        img.loading = "lazy";
+        img.onerror = () => img.remove();
+        card.append(img);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "form-actions";
+
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.className = "btn btn-danger";
+      deleteButton.textContent = "حذف الإعلان";
+      deleteButton.addEventListener("click", () => deleteAnnouncement(ad.id));
+
+      actions.append(deleteButton);
+      card.append(actions);
+      list.append(card);
+    });
+  } catch (error) {
+    console.error("Load announcements error:", error);
+    count.textContent = "تعذر التحميل";
+    list.innerHTML = `<div class="empty">تعذر تحميل الإعلانات. راجع اتصال Supabase وصلاحيات جدول الإعلانات.</div>`;
+  }
+}
+
+$("announcementForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (isPublishingAnnouncement) return;
+
+  const title = $("announcementTitle").value.trim();
+  const content = $("announcementContent").value.trim();
+  const file = selectedAnnouncementImage;
+
+  if (!title || !content) {
+    alert("اكتب عنوان الإعلان ومحتواه.");
+    return;
+  }
+
+  if (file && file.size > 2 * 1024 * 1024) {
+    alert("حجم الصورة لازم يكون 2 ميجابايت أو أقل.");
+    return;
+  }
+
+  const submitButton = $("announcementForm").querySelector('button[type="submit"]');
+
+  isPublishingAnnouncement = true;
+  submitButton.disabled = true;
+  submitButton.textContent = "جاري النشر...";
+
+  let uploadedPath = null;
+
+  try {
+    let imageUrl = null;
+
+    if (file) {
+      const extension = file.type === "image/png"
+        ? "png"
+        : file.type === "image/webp"
+          ? "webp"
+          : "jpg";
+
+      const filePath = crypto.randomUUID
+        ? crypto.randomUUID() + "." + extension
+        : Date.now() + "-" + Math.random().toString(36).slice(2) + "." + extension;
+
+      const { error: uploadError } = await supabaseClient.storage
+        .from("gym-announcement-images")
+        .upload(filePath, file, {
+          contentType: file.type,
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      uploadedPath = filePath;
+
+      const { data: urlData } = supabaseClient.storage
+        .from("gym-announcement-images")
+        .getPublicUrl(filePath);
+
+      imageUrl = urlData.publicUrl;
+    }
+
+    const { error: insertError } = await supabaseClient
+      .from("gym_announcements")
+      .insert([{
+        title,
+        content,
+        image: imageUrl
+      }]);
+
+    if (insertError) throw insertError;
+
+    $("announcementForm").reset();
+    clearAnnouncementImage();
+
+    await renderAnnouncements();
+    alert("تم نشر الإعلان بنجاح، ويمكن عرضه من صفحة الجمهور.");
+  } catch (error) {
+    console.error("Publish announcement error:", error);
+
+    if (uploadedPath) {
+      const { error: cleanupError } = await supabaseClient.storage
+        .from("gym-announcement-images")
+        .remove([uploadedPath]);
+
+      if (cleanupError) console.error("Image cleanup error:", cleanupError);
+    }
+
+    alert("فشل نشر الإعلان: " + (error.message || "خطأ غير معروف"));
+  } finally {
+    isPublishingAnnouncement = false;
+    submitButton.disabled = false;
+    submitButton.textContent = "▣ نشر الإعلان";
+  }
+});
+
+async function deleteAnnouncement(id) {
+  if (!confirm("هل تريد حذف هذا الإعلان؟")) return;
+
+  try {
+    const { error } = await supabaseClient
+      .from("gym_announcements")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    await renderAnnouncements();
+    alert("تم حذف الإعلان.");
+  } catch (error) {
+    console.error("Delete announcement error:", error);
+    alert("تعذر حذف الإعلان: " + (error.message || "خطأ غير معروف"));
+  }
+}
+
+function renderAll() {
+  renderDashboard();
+  renderMembers();
+  renderSubscriptions();
+  renderAnnouncements();
+}
+
+$("today").textContent = new Intl.DateTimeFormat("ar-EG", {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric"
+}).format(new Date());
+
+$("startDate").value = todayString();
+calculateEndDate();
+applySettings();
+renderAll();
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/sw.js")
@@ -207,6 +862,5 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
-
 </body>
 </html>
