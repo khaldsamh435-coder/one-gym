@@ -1,4 +1,4 @@
-const CACHE_NAME = "one-gym-v2";
+const CACHE_NAME = "one-gym-v3";
 
 const FILES_TO_CACHE = [
   "./",
